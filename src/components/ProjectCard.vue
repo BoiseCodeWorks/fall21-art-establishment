@@ -52,7 +52,10 @@ export default {
       account: computed(() => AppState.account),
       async deleteProject() {
         try {
-          await projectsService.deleteProject(props.project.id)
+          if (await Pop.confirm()) {
+            await projectsService.deleteProject(props.project.id)
+            Pop.toast('Delorted!', 'success')
+          }
         } catch (error) {
           Pop.toast(error, 'error')
         }
